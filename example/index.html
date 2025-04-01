@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizard Bubble Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh;
+        }
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .feature-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+            width: calc(33.33% - 20px);
+            box-sizing: border-box;
+            transition: transform 0.2s;
+        }
+        .feature-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 20px;
+            background: #e9ecef;
+            border-radius: 4px;
+        }
+        .theme-selector {
+            margin: 10px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .theme-selector label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .theme-selector input[type="color"] {
+            width: 50px;
+            height: 30px;
+            padding: 0;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wizard Bubble Demo</h1>
+        
+        <div class="controls">
+            <button onclick="startDemo()">Start Demo</button>
+            <button onclick="startCustomDemo()" style="margin-left: 10px;">Start Custom Theme Demo</button>
+            
+            <div class="theme-selector">
+                <h3>Custom Theme</h3>
+                <label>Background Color: <input type="color" id="bgColor" value="#ffffff"></label><br>
+                <label>Text Color: <input type="color" id="textColor" value="#000000"></label><br>
+                <label>Button Color: <input type="color" id="buttonColor" value="#007bff"></label><br>
+                <label>Button Text Color: <input type="color" id="buttonTextColor" value="#ffffff"></label>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <div id="feature1" class="feature-box">
+                <h2>Feature 1</h2>
+                <p>This is an important feature that needs explanation.</p>
+            </div>
+
+            <div id="feature2" class="feature-box">
+                <h2>Feature 2</h2>
+                <p>Another crucial feature to showcase.</p>
+            </div>
+
+            <div id="feature3" class="feature-box">
+                <h2>Feature 3</h2>
+                <p>The final feature in our demo.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { WizardBubbleWeb } from './src/web.js';
+        
+        const wizardBubble = new WizardBubbleWeb();
+        
+        // Make functions available globally
+        window.wizardBubble = wizardBubble;
+        
+        window.startDemo = async () => {
+            await wizardBubble.show({
+                steps: [
+                    {
+                        targetId: 'feature1',
+                        text: 'Welcome to Feature 1! This is where your journey begins.',
+                        icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3YmZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMSAxNWgtMnYtMmgydjJ6bTAtNGgtMlY3aDJ2NnoiLz48L3N2Zz4='
+                    },
+                    {
+                        targetId: 'feature2',
+                        text: 'Feature 2 offers advanced capabilities.',
+                        icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3YmZmIj48cGF0aCBkPSJNMTIgMTBjLTEuMSAwLTIgLjktMiAycy45IDIgMiAyIDItLjkgMi0yLS45LTItMi0yem06IDBjLTEuMSAwLTIgLjktMiAycy45IDIgMiAyIDItLjkgMi0yLS45LTItMi0yek06IDEwYy0xLjEgMC0yIC45LTIgMnMuOSAyIDIgMiAyLS45IDItMi0uOS0yLTItMnoiLz48L3N2Zz4='
+                    },
+                    {
+                        targetId: 'feature3',
+                        text: 'And finally, Feature 3 completes the experience!',
+                        icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3YmZmIj48cGF0aCBkPSJNOSAxNi4yTDQuOCAxMmwtMS40IDEuNEw5IDE5IDIxIDdsLTEuNC0xLjRMOSAxNi4yeiIvPjwvc3ZnPg=='
+                    }
+                ]
+            });
+        };
+
+        window.startCustomDemo = async () => {
+            await wizardBubble.show({
+                steps: [
+                    {
+                        targetId: 'feature1',
+                        text: 'Custom themed wizard bubble!',
+                        icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3YmZmIj48cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMSAxNWgtMnYtMmgydjJ6bTAtNGgtMlY3aDJ2NnoiLz48L3N2Zz4='
+                    },
+                    {
+                        targetId: 'feature2',
+                        text: 'Customizable colors and styles!',
+                        icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3YmZmIj48cGF0aCBkPSJNMTIgMjJDNi40OSAyMiAyIDE3LjUxIDIgMTJTNi40OSAyIDEyIDJzMTAgNC40OCAxMCAxMC00LjQ4IDEwLTEwIDEwem0wLTE4Yy00LjQxIDAtOCAzLjU5LTggOHMzLjU5IDggOCA4IDgtMy41OSA4LTgtMy41OS04LTgtOHptMCA2YzEuMTEgMCAyIC44OSAyIDJzLS44OSAyLTIgMi0yLS44OS0yLTIgLjg5LTIgMi0yeiIvPjwvc3ZnPg=='
+                    },
+                    {
+                        targetId: 'feature3',
+                        text: 'Complete the custom themed tour!',
+                        icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3YmZmIj48cGF0aCBkPSJNOSAxNi4yTDQuOCAxMmwtMS40IDEuNEw5IDE5IDIxIDdsLTEuNC0xLjRMOSAxNi4yeiIvPjwvc3ZnPg=='
+                    }
+                ],
+                theme: {
+                    backgroundColor: document.getElementById('bgColor').value,
+                    textColor: document.getElementById('textColor').value,
+                    buttonColor: document.getElementById('buttonColor').value,
+                    buttonTextColor: document.getElementById('buttonTextColor').value
+                }
+            });
+        };
+    </script>
+</body>
+</html>
